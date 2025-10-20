@@ -1,64 +1,72 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>∇ Will Kim</title>
-  <link rel="icon" type="image/png" href="del.png">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <meta name="description" content="website" />
-  <meta name="color-scheme" content="light dark" />
-  <style>
-    :root { --bg:#f5f5f5; --fg:#111111; --muted:#666666; --link:#2a65ff; --max:760px; }
-    @media (prefers-color-scheme: dark) {
-      :root { --bg:#1a1a1a; --fg:#f5f5f5; --muted:#9a9a9a; --link:#81a7ff; }
-    }
-    html, body { height: 100%; margin: 0; }
-    body {
-      background: var(--bg);
-      color: var(--fg);
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      font-size: 20px;
-      line-height: 1.8;
-    }
-    .wrap { max-width: var(--max); margin: 64px auto 96px; padding: 0 24px; }
-    h1 { font-size: clamp(40px, 6vw, 56px); letter-spacing: -0.01em; margin: 0 0 12px; font-weight: 600; }
-    .links { margin: 8px 0 28px; }
-    .links a { color: var(--link); text-decoration: none; border-bottom: 1px solid color-mix(in oklab, var(--link) 55%, transparent); }
-    .links a:hover { text-decoration: underline; }
-    p { margin: 22px 0; }
-    .muted { color: var(--muted); }
-    .block-links { margin: 18px 0 8px; padding-left: 0; }
-    .block-links a { display: block; margin: 10px 0; color: var(--link); text-decoration: none; }
-    .block-links a:hover { text-decoration: underline; }
-    .section-title { margin: 30px 0 6px; font-weight: 600; }
-    footer { margin-top: 60px; color: var(--muted); font-size: 18px; }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>∇ Will Kim</title>
+<link rel="icon" type="image/png" href="del.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<meta name="description" content="website" />
+<meta name="color-scheme" content="light dark" />
+<style>
+:root { --bg:#e0e0e0; --fg:#111111; --muted:#666666; --link:#2a65ff; --max:760px; }
+@media (prefers-color-scheme: dark) {
+:root { --bg:#151515; --fg:#f5f5f5; --muted:#9a9a9a; --link:#81a7ff; }
+}
+html, body { height: 100%; margin: 0; }
+body {
+background: var(--bg);
+color: var(--fg);
+font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+font-size: 20px;
+line-height: 1.8;
+}
+.wrap { max-width: var(--max); margin: 64px auto 96px; padding: 0 24px; }
+h1 { font-size: clamp(40px, 6vw, 56px); letter-spacing: -0.01em; margin: 0 0 12px; font-weight: 600; }
+.links { margin: 8px 0 28px; }
+.links a { color: var(--link); text-decoration: none; border-bottom: 1px solid color-mix(in oklab, var(--link) 55%, transparent); }
+.links a:hover { text-decoration: underline; }
+p { margin: 22px 0; }
+.muted { color: var(--muted); }
+.block-links { margin: 18px 0 8px; padding-left: 0; }
+.block-links a { display: block; margin: 10px 0; color: var(--link); text-decoration: none; }
+.block-links a:hover { text-decoration: underline; }
+.section-title { margin: 30px 0 6px; font-weight: 600; }
+footer { margin-top: 60px; color: var(--muted); font-size: 18px; }
+</style>
 </head>
 <body>
-  <main class="wrap">
-    <h1>Will Kim</h1>
-    <div class="links">
-      <a href="https://github.com/hyunnkim">GitHub</a>
-      <a href="https://www.linkedin.com/in/hyunkimm" style="margin-left:16px">LinkedIn</a>
-    </div>
+<main class="wrap">
+<h1>Will Kim</h1>
+<div class="links">
+<a href="https://github.com/hyunnkim">GitHub</a>
+<a href="https://www.linkedin.com/in/hyunkimm" style="margin-left:16px">LinkedIn</a>
+</div>
 
-    <p>Hi! My name is Will Kim.</p>
 
-    <p>I'm currently studying applied mathematics and computer science at Columbia University, where I am mostly interested in probabilistic ML, NLP, and RL models.</p>
+<p>Hi! My name is Will Kim.</p>
 
-    <p>My hobbies come and go. Currently, I skateboard, enjoy cooking (and eating), and play competitive chess. In the past I have enjoyed Super Smash Brothers, paddling, skiing, and probably a few other things.</p>
 
-    <p class="section-title">Other fun things I worked on independently:</p>
-    <div class="block-links">
-      <a href="#">Evolver Neural Network</a>
-      <a href="#">Yearly ETF Forecasting Model</a>
-      <a href="#">Cross-Sectional Alpha Generation using GBT</a>
-    </div>
+<p>I'm currently studying applied mathematics and computer science at Columbia University, where I am mostly interested in probabilistic ML, NLP, and RL models.</p>
 
-    <p class="section-title">Industry gigs:</p>
-    <p>🛡️ 2022–2026 @ USAF, Strategic Asset Manager</p>
 
-  </main>
+<p>My hobbies come and go. Currently, I skateboard, enjoy cooking (and eating), and play competitive chess. In the past I have enjoyed Super Smash Brothers, paddling, skiing, and probably a few other things.</p>
+
+
+<p class="section-title">Other fun things I worked on independently:</p>
+<div class="block-links">
+<a href="#">Evolver Neural Network</a>
+<a href="#">Yearly ETF Forecasting Model</a>
+<a href="#">Cross-Sectional Alpha Generation using GBT</a>
+</div>
+
+
+<p class="section-title">Industry gigs:</p>
+<p>🛡️ 2022–2026 @ USAF, Strategic Asset Manager</p>
+
+
+</main>
 </body>
 </html>
