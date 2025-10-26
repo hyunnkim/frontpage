@@ -1,49 +1,75 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <title>Will Kim</title>
-        <link rel="icon" type="image/x-icon" href="/del.png" />
-        <link rel="stylesheet" href="styles.css" />
-        <link rel="preload" href="/fonts/azeret-mono-v18-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
-        <script defer src="/_vercel/insights/script.js"></script>
-    </head>
-    <body>
-        <header>
-            <h1>Will Kim</h1>
-            <div>
-                <a href="https://github.com/hyunnkim">GitHub</a>
-                <a href="https://linkedin.com/in/hyunkimm">LinkedIn</a>
-            </div>
-            <text> I'm currently studying applied math and computer science at <a href="https://www.columbia.edu" target="_blank">Columbia University</a>, where I am mostly interested in probabilistic ML, NLP, and RL models. </text>
-        </div>
-        <br />
-        <div class="vert">
-            <text>
-                >My hobbies come and go. Currently, I skateboard, enjoy cooking (and eating), follow the quantitative trading space, and play competitive chess. In the past I have enjoyed Super Smash Brothers, paddling, skiing, and probably a few other things.
-            </text>
-            <ul>
-                <li><a href="/">Flexible KV caching for multi-agent systems</a></li>
-                <li><a href="/">Sampling parallel diverse sequences</li>
-                <li><a href="/">Diffusion language models</a></li>
-            </ul>
-        </div>
-        <div class="vert">
-            <text>
-                Other fun things I worked on independently:
-            </text>
-            <ul>
-                <li><a href="/">Evolver NN</a></li>
-                <li><a href="/">Yearly ETF forecasting model</a></li>
-                <li><a href="/">Cross-Sectional alpha gen using GBT</a></li>
-            </ul>
-        </div>
-        <div class="vert">
-            <text>Some industry gigs:</text>
-            <ul>
-                <li></li>
-                <li></li>
-            </ul>
-        </div>
-    </body>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Will Kim</title>
+
+  <link rel="icon" type="image/png" href="del.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+  <meta name="description" content="website" />
+  <meta name="color-scheme" content="light" />
+
+  <style>
+    :root { --bg:#e4e4e4; --fg:#111111; --muted:#666666; --link:#2a65ff; --max:760px; color-scheme: light; }
+    
+    }
+    html, body { height: 100%; margin: 0; }
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: 'Azeret Mono', monospace !important;
+      font-weight: 300;
+      font-size: 18px;
+      line-height: 1.8;
+    }
+    * {
+      font-family: 'Azeret Mono', monospace !important;
+      font-weight: 300;
+    }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wrap { max-width: var(--max); margin: 64px auto 96px; padding: 0 24px; text-align: left; }
+    h1 { font-size: clamp(28px, 4.5vw, 38px); letter-spacing: -0.01em; margin: 0; font-weight: 600; line-height: 1.1; }
+    .links-inline { margin-top: 8px; line-height: 1; }
+    .links-inline a { color: var(--link); text-decoration: none; margin-right: 16px; font-size: 18px; font-weight: 400; }
+    .links-inline a:hover { text-decoration: underline; }
+    p { margin: 22px 0; }
+    .muted { color: var(--muted); }
+    .block-links { margin: 18px 0 8px; padding-left: 24px; }
+    .block-links a { display: block; margin: 10px 0; color: var(--link); text-decoration: none; font-weight: 400; }
+    .block-links a:hover { text-decoration: underline; }
+    .section-title { margin: 30px 0 6px; font-weight: 400; }
+    footer { margin-top: 60px; color: var(--muted); font-size: 18px; }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <h1>Will Kim</h1>
+    <div class="links-inline">
+      <a href="https://github.com/hyunnkim">GitHub</a>
+      <a href="https://www.linkedin.com/in/hyunkimm">LinkedIn</a>
+    </div>
+
+    <p>Hi! My name is Will Kim.</p>
+
+    <p>I'm currently studying applied math and computer science at <a href="https://www.columbia.edu" target="_blank">Columbia University</a>, where I am mostly interested in probabilistic ML, NLP, and RL models.</p>
+
+    <p>My hobbies come and go. Currently, I skateboard, enjoy cooking (and eating), follow the quantitative trading space, and play competitive chess. In the past I have enjoyed Super Smash Brothers, paddling, skiing, and probably a few other things.</p>
+
+    <p class="section-title">Some independent projects I have worked on:</p>
+    <div class="block-links">
+      <a href="#">Evolver NN</a>
+      <a href="#">Yearly ETF forecasting model</a>
+      <a href="#">Cross-Sectional alpha gen using GBT</a>
+    </div>
+
+    <p class="section-title">Industry gigs:</p>
+    <p>🛡️</p>
+
+  </main>
+</body>
 </html>
