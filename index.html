@@ -25,9 +25,9 @@
     html, body {
       height: 100%;
       margin: 0;
-    }
-
-    body {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
       background: var(--bg);
       color: var(--fg);
       font-family: 'Azeret Mono', monospace;
@@ -47,8 +47,7 @@
 
     main {
       max-width: var(--max);
-      margin: 64px auto;
-      padding: 0 24px;
+      padding: 64px 24px;
     }
 
     h1 {
@@ -72,7 +71,7 @@
     }
 
     .vert {
-      margin: 32px 0;
+      margin: 24px 0;
       font-size: 16px;
       color: var(--fg);
     }
@@ -80,7 +79,7 @@
     .vert ul {
       list-style-type: none;
       padding-left: 24px;
-      margin: 12px 0 0 0;
+      margin: 4px 0 0 0;
     }
 
     .vert li {
@@ -99,12 +98,11 @@
     </header>
 
     <div class="vert">
-      I'm currently studying applied math and computer science at <a href="https://www.columbia.edu">Columbia University</a>, where I am mostly interested in probabilistic ML, NLP, and RL models.
+      I'm currently studying applied math and computer science at <a href="https://www.columbia.edu">Columbia University</a>, where I am mostly interested in probabilistic ML, NLP, and RL methods.
     </div>
 
     <div class="vert">
-      My hobbies come and go. Currently, I skateboard, enjoy cooking (and eating), and play competitive chess.
-    </div>
+      My hobbies come and go. Currently, I skateboard, enjoy cooking (and eating), and play competitive chess. 
 
     <div class="vert">
       Some other independent projects I have worked on:
@@ -115,7 +113,7 @@
       </ul>
     </div>
 
-    <div class="vert">
+    <div class="vert" style="margin-top: 10px;">
       Industry gigs:
       <ul>
         <li>🛡️</li>
