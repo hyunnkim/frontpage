@@ -33,6 +33,8 @@
         transform: translateX(-50%);
         font-size: 14px;
         opacity: 0.6;
+        font-family: "Courier New", monospace;
+        font-variant-numeric: tabular-nums;
     }
     #content {
         position: absolute;
@@ -94,7 +96,6 @@
 <div id="counter"></div>
 
 <div id="content">
-
     <div id="ascii-donut"></div>
 
     <h1>William Kim</h1>
@@ -104,7 +105,6 @@
         <div class="typed-line">Currently, I study applied math and computer science at Columbia University</div>
         <div class="typed-line">My hobbies come and go. Currently, I skateboard, enjoy cooking (and eating), and follow the quantitative stock and cryptocurrency trading space.</div>
     </div>
-
 </div>
 
 <div id="glitch"></div>
@@ -116,7 +116,8 @@
 
 <script>
 const glitch = document.getElementById("glitch");
-const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()[]{}.,-~:;=+/";
+const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+=-[]{}|;:',.<>?/`~";
+
 function randomString(n) {
     let o = "";
     for (let i = 0; i < n; i++) o += chars[Math.floor(Math.random() * chars.length)];
@@ -148,18 +149,37 @@ function updateTimer() {
 }
 updateTimer();
 
+const lines = [...document.querySelectorAll(".typed-line")];
+function typeLine(i) {
+    if (!lines[i]) return;
+    const el = lines[i];
+    const t = el.textContent.trim();
+    el.textContent = "";
+    el.style.opacity = 1;
+    let p = 0;
+    const s = setInterval(() => {
+        el.textContent += t[p];
+        p++;
+        if (p === t.length) {
+            clearInterval(s);
+            setTimeout(() => typeLine(i + 1), 400);
+        }
+    }, 25);
+}
+typeLine(0);
+
 const donut = document.getElementById("ascii-donut");
 
 function renderDonut() {
-    const outer = 16;
-    const inner = 8;
+    const outer = 18;
+    const inner = 9;
 
     let out = "";
 
     for (let y = -outer; y <= outer; y++) {
         let row = "";
-        for (let x = -outer * 2; x <= outer * 2; x++) {
-            let dx = x / 2;
+        for (let x = -outer * 3; x <= outer * 3; x++) {
+            let dx = x / 3;
             let d = Math.sqrt(dx * dx + y * y);
 
             if (d < inner) {
@@ -172,6 +192,7 @@ function renderDonut() {
         }
         out += row + "\n";
     }
+
     donut.textContent = out;
 }
 
