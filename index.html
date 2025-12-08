@@ -69,17 +69,16 @@
     #bullets {
         max-width: 850px;
         margin: 0 auto;
-        text-align: center;
         color: #4a4f58;
         font-size: 17px;
+        text-align: left;
     }
 
     .typed-line {
         display: flex;
-        justify-content: center;
         align-items: flex-start;
         gap: 12px;
-        margin: 16px 0;
+        margin: 18px 0;
     }
 
     .bullet-mark {
@@ -90,7 +89,6 @@
 
     .bullet-text {
         white-space: pre-wrap;
-        text-align: left;
         font-size: 17px;
         max-width: 700px;
     }
@@ -159,7 +157,6 @@
     </div>
 </div>
 
-
 <div id="glitch"></div>
 
 <div id="footer">
@@ -167,64 +164,49 @@
     <a href="https://github.com/hyunnkim" target="_blank">GITHUB</a>
 </div>
 
-
 <script>
-/* GLITCH TEXT */
 const glitch = document.getElementById("glitch");
-const glitchChars = `!@#$%^&*()_+=-[]{}|;:',.<>?/~`;
+const glitchChars = "!@#$%^&*()_+=-[]{}|;:',.<>?/~";
 function randomGlitch(n) {
     let o = "";
-    for (let i = 0; i < n; i++)
-        o += glitchChars[Math.floor(Math.random() * glitchChars.length)];
+    for (let i = 0; i < n; i++) o += glitchChars[Math.floor(Math.random() * glitchChars.length)];
     return o;
 }
 setInterval(() => glitch.textContent = randomGlitch(12), 120);
 
-
-/* TIMER */
 let start = parseInt(localStorage.getItem("timerStart")) || Date.now();
 localStorage.setItem("timerStart", start);
 
 function updateTimer() {
     let now = Date.now();
     let diff = now - start;
-
     let hours = Math.floor(diff / 3600000);
     let minutes = Math.floor((diff % 3600000) / 60000);
     let seconds = Math.floor((diff % 60000) / 1000);
     let ms = diff % 1000;
-
     document.getElementById("counter").textContent =
         hours.toString() +
         minutes.toString().padStart(2, "0") +
         seconds.toString().padStart(2, "0") +
         ms.toString().padStart(3, "0");
-
     requestAnimationFrame(updateTimer);
 }
 updateTimer();
 
-
-/* DONUT */
 const donut = document.getElementById("ascii-donut");
-const donutChars = `!"#$%&'()*+,-./:;<=>?@[]^_{}~`;
+const donutChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
 
-function renderDonut() {
-    const outer = 22;
-    const inner = 13;
-    const stretch = 3.45;
-
+function renderCircle() {
+    const outerRadius = 14;
+    const innerRadius = 7;
+    const stretch = 2.2;
     let out = "";
-
-    for (let y = -outer; y <= outer; y++) {
+    for (let y = -outerRadius; y <= outerRadius; y++) {
         let row = "";
-        for (let x = -outer * stretch; x <= outer * stretch; x++) {
+        for (let x = -outerRadius * stretch; x <= outerRadius * stretch; x++) {
             let dx = x / stretch;
             let d = Math.sqrt(dx * dx + y * y);
-
-            if (d < inner) {
-                row += " ";
-            } else if (d < outer) {
+            if (d >= innerRadius && d <= outerRadius && Math.random() < 0.8) {
                 row += donutChars[Math.floor(Math.random() * donutChars.length)];
             } else {
                 row += " ";
@@ -232,15 +214,11 @@ function renderDonut() {
         }
         out += row + "\n";
     }
-
     donut.textContent = out;
 }
+setInterval(renderCircle, 70);
+renderCircle();
 
-setInterval(renderDonut, 60);
-renderDonut();
-
-
-/* TYPEWRITER BULLETS */
 const textLines = [
     "I enjoy being at the intersection of product and machine learning",
     "Currently, I study applied math and computer science at Columbia University",
@@ -251,11 +229,9 @@ let speed = 12;
 
 function typeLine(idx) {
     if (idx >= textLines.length) return;
-
     let el = document.getElementById("line" + (idx + 1));
     let text = textLines[idx];
     let i = 0;
-
     function typeChar() {
         if (i <= text.length) {
             el.textContent = text.substring(0, i);
@@ -267,7 +243,6 @@ function typeLine(idx) {
     }
     typeChar();
 }
-
 typeLine(0);
 </script>
 
