@@ -53,8 +53,8 @@
     #ascii-donut {
         font-family: "Courier New", monospace;
         white-space: pre;
-        font-size: 8px;
-        line-height: 8px;
+        font-size: 9px;
+        line-height: 9px;
         opacity: 0.76;
         margin-bottom: 45px;
     }
@@ -89,9 +89,10 @@
     }
 
     .bullet-text {
-        white-space: pre;
+        white-space: pre-wrap;
         text-align: left;
         font-size: 17px;
+        max-width: 700px;
     }
 
     #glitch {
@@ -117,6 +118,10 @@
         text-decoration: none;
         margin: 0 18px;
         opacity: 0.75;
+    }
+
+    #footer a:hover {
+        opacity: 1;
     }
 </style>
 </head>
@@ -164,9 +169,7 @@
 
 
 <script>
-/* -------------------------------------------------------
-   GLITCH TEXT (BOTTOM LEFT)
-------------------------------------------------------- */
+/* GLITCH TEXT */
 const glitch = document.getElementById("glitch");
 const glitchChars = `!@#$%^&*()_+=-[]{}|;:',.<>?/~`;
 function randomGlitch(n) {
@@ -178,9 +181,7 @@ function randomGlitch(n) {
 setInterval(() => glitch.textContent = randomGlitch(12), 120);
 
 
-/* -------------------------------------------------------
-   PERSISTENT TIMER (NEVER RESETS)
-------------------------------------------------------- */
+/* TIMER */
 let start = parseInt(localStorage.getItem("timerStart")) || Date.now();
 localStorage.setItem("timerStart", start);
 
@@ -204,9 +205,7 @@ function updateTimer() {
 updateTimer();
 
 
-/* -------------------------------------------------------
-   PERFECT DONUT (MATCHES YOUR PHOTO EXACTLY)
-------------------------------------------------------- */
+/* DONUT */
 const donut = document.getElementById("ascii-donut");
 const donutChars = `!"#$%&'()*+,-./:;<=>?@[]^_{}~`;
 
@@ -241,9 +240,7 @@ setInterval(renderDonut, 60);
 renderDonut();
 
 
-/* -------------------------------------------------------
-   TYPEWRITER FOR BULLET POINTS
-------------------------------------------------------- */
+/* TYPEWRITER BULLETS */
 const textLines = [
     "I enjoy being at the intersection of product and machine learning",
     "Currently, I study applied math and computer science at Columbia University",
