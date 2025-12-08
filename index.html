@@ -26,6 +26,14 @@
         font-size: 12px;
         opacity: 0.6;
     }
+    #counter {
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 14px;
+        opacity: 0.6;
+    }
     #content {
         position: absolute;
         top: 50%;
@@ -44,7 +52,7 @@
     }
     h1 {
         font-size: 32px;
-        margin: 10px 0 25px 0;
+        margin-bottom: 25px;
         font-weight: 500;
     }
     .typed-line {
@@ -83,13 +91,7 @@
 <div id="coords-left">40°48'26.3"N</div>
 <div id="coords-right">73°57'49.5"W</div>
 
-<div id="counter" style="
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 14px;
-    opacity: 0.6;"></div>
+<div id="counter"></div>
 
 <div id="content">
 
@@ -108,23 +110,23 @@
 <div id="glitch"></div>
 
 <div id="footer">
-    <a href="https://www.linkedin.com/in/hyunkimm" target="_blank" rel="noopener noreferrer">LINKEDIN</a>
-    <a href="https://github.com/hyunnkim" target="_blank" rel="noopener noreferrer">GITHUB</a>
+    <a href="https://www.linkedin.com/in/hyunkimm" target="_blank">LINKEDIN</a>
+    <a href="https://github.com/hyunnkim" target="_blank">GITHUB</a>
 </div>
 
 <script>
-onst glitch = document.getElementById("glitch");
+const glitch = document.getElementById("glitch");
 const chars = ".,-~:;=!*#$@";
 
-function randomString(len = 12) {
+function randomString(n) {
     let o = "";
-    for (let i = 0; i < len; i++) o += chars[Math.floor(Math.random() * chars.length)];
+    for (let i = 0; i < n; i++) o += chars[Math.floor(Math.random() * chars.length)];
     return o;
 }
 setInterval(() => glitch.textContent = randomString(12), 120);
 
 let base = parseFloat(localStorage.getItem("smoothCounterValue")) || 0;
-let last = parseInt(localStorage.getItem("smoothCounterTime")) || Date.now();
+let last = parseFloat(localStorage.getItem("smoothCounterTime")) || Date.now();
 
 function updateBase() {
     let now = Date.now();
@@ -164,24 +166,24 @@ typeLine(0);
 
 const donut = document.getElementById("ascii-donut");
 
-function makeCircle() {
-    const radius = 12;
-    const rows = [];
-    for (let y = -radius; y <= radius; y++) {
+function renderCircle() {
+    const r = 12;
+    let out = "";
+    for (let y = -r; y <= r; y++) {
         let row = "";
-        for (let x = -radius * 2; x <= radius * 2; x++) {
+        for (let x = -r * 2; x <= r * 2; x++) {
             let dx = x / 2;
             let d = Math.sqrt(dx * dx + y * y);
-            if (d < radius - 1) row += chars[Math.floor(Math.random() * chars.length)];
-            else if (d < radius) row += chars[Math.floor(Math.random() * (chars.length / 2))];
+            if (d < r - 1) row += chars[Math.floor(Math.random() * chars.length)];
+            else if (d < r) row += chars[Math.floor(Math.random() * (chars.length / 2))];
             else row += " ";
         }
-        rows.push(row);
+        out += row + "\n";
     }
-    donut.textContent = rows.join("\n");
+    donut.textContent = out;
 }
-setInterval(makeCircle, 60);
-makeCircle();
+setInterval(renderCircle, 60);
+renderCircle();
 </script>
 
 </body>
