@@ -116,92 +116,86 @@
 const glitch = document.getElementById("glitch");
 const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 function randomString(len = 12) {
-    let out = "";
-    for (let i = 0; i < len; i++)
-        out += chars[Math.floor(Math.random() * chars.length)];
-    return out;
+    let o = "";
+    for (let i = 0; i < len; i++) o += chars[Math.floor(Math.random() * chars.length)];
+    return o;
 }
 setInterval(() => glitch.textContent = randomString(12), 120);
 
-let count = parseInt(localStorage.getItem("counterValue")) || 0;
-document.getElementById("counter").textContent = count;
-setInterval(() => {
-    count += Math.floor(Math.random() * 3) + 1;
-    document.getElementById("counter").textContent = count;
-    localStorage.setItem("counterValue", count);
-}, 90);
+/* persistent counter based on real time */
+let saved = parseInt(localStorage.getItem("counterValue")) || 0;
+let last = parseInt(localStorage.getItem("counterTimestamp")) || Date.now();
 
+function syncCounter() {
+    let now = Date.now();
+    let diff = now - last;
+    let increments = Math.floor(diff / 90);
+    if (increments > 0) {
+        saved += increments * (Math.floor(Math.random() * 3) + 1);
+        last = now;
+        localStorage.setItem("counterValue", saved);
+        localStorage.setItem("counterTimestamp", last);
+    }
+    document.getElementById("counter").textContent = saved;
+}
+setInterval(syncCounter, 90);
+syncCounter();
+
+/* typewriter */
 const lines = [...document.querySelectorAll(".typed-line")];
-function typeLine(index) {
-    if (!lines[index]) return;
-    const el = lines[index];
-    const text = el.textContent.trim();
+function typeLine(i) {
+    if (!lines[i]) return;
+    const el = lines[i];
+    const txt = el.textContent.trim();
     el.textContent = "";
     el.style.opacity = 1;
-    let i = 0;
-    const typer = setInterval(() => {
-        el.textContent += text[i];
-        i++;
-        if (i === text.length) {
-            clearInterval(typer);
-            setTimeout(() => typeLine(index + 1), 400);
+    let p = 0;
+    const t = setInterval(() => {
+        el.textContent += txt[p];
+        p++;
+        if (p === txt.length) {
+            clearInterval(t);
+            setTimeout(() => typeLine(i + 1), 400);
         }
     }, 25);
 }
 typeLine(0);
 
-let A = 0;
-let B = 0;
+/* 2D donut (non-rotating, characters always changing) */
 const donut = document.getElementById("ascii-donut");
 
-function renderDonut() {
-    const width = 60;
-    const height = 22;
+const donutShape = [
+"          #######          ",
+"      ###         ###      ",
+"    ##               ##    ",
+"   #                   #   ",
+"  #                     #  ",
+"  #                     #  ",
+"  #                     #  ",
+"   #                   #   ",
+"    ##               ##    ",
+"      ###         ###      ",
+"          #######          "
+];
 
-    const empty = " ";  /* thin-space character */
-    const b = new Array(width * height).fill(empty);
-    const z = new Array(width * height).fill(0);
-
-    for (let j = 0; j < 6.28; j += 0.07) {
-        for (let i = 0; i < 6.28; i += 0.02) {
-            const c = Math.sin(i);
-            const d = Math.cos(j);
-            const e = Math.sin(A);
-            const f = Math.sin(j);
-            const g = Math.cos(A);
-            const h = d + 2;
-            const D = 1 / (c * h * e + f * g + 5);
-            const l = Math.cos(i);
-            const m = Math.cos(B);
-            const n = Math.sin(B);
-            const t = c * h * g - f * e;
-            const x = Math.floor(width / 2 + width * D * (l * h * m - t * n));
-            const y = Math.floor(height / 2 + height * D * (l * h * n + t * m));
-            const o = x + width * y;
-            const N = Math.floor(
-                8 * ((f * e - c * d * g) * m - c * d * e - f * g - l * d * n)
-            );
-
-            if (y >= 0 && y < height && x >= 0 && x < width && D > z[o]) {
-                z[o] = D;
-                b[o] = ".,-~:;=!*#$@"[Math.max(N, 0)] || ".";
+function render2DDonut() {
+    let out = "";
+    for (let row of donutShape) {
+        let line = "";
+        for (let ch of row) {
+            if (ch === "#") {
+                line += ".,-~:;=!*#$@"[Math.floor(Math.random() * 12)];
+            } else {
+                line += " "; 
             }
         }
+        out += line + "\n";
     }
-
-    let output = "";
-    for (let k = 0; k < b.length; k++) {
-        output += b[k];
-        if ((k + 1) % width === 0) output += "\n";
-    }
-
-    donut.textContent = output;
-    A += 0.04;
-    B += 0.02;
+    donut.textContent = out;
 }
 
-setInterval(renderDonut, 30);
-
+setInterval(render2DDonut, 60);
+render2DDonut();
 </script>
 
 </body>
