@@ -137,7 +137,7 @@ function updateTimer() {
     let ms = diff % 1000;
 
     let output =
-        hours.toString().padStart(4, "0") +
+        hours.toString() +
         minutes.toString().padStart(2, "0") +
         seconds.toString().padStart(2, "0") +
         ms.toString().padStart(3, "0");
@@ -171,13 +171,16 @@ const donut = document.getElementById("ascii-donut");
 
 function renderCircle() {
     const r = 12;
+    const inner = 6;
     let out = "";
     for (let y = -r; y <= r; y++) {
         let row = "";
         for (let x = -r * 2; x <= r * 2; x++) {
             let dx = x / 2;
             let d = Math.sqrt(dx * dx + y * y);
-            if (d < r - 1) row += chars[Math.floor(Math.random() * chars.length)];
+
+            if (d < inner) row += " ";
+            else if (d < r - 1) row += chars[Math.floor(Math.random() * chars.length)];
             else if (d < r) row += chars[Math.floor(Math.random() * (chars.length / 2))];
             else row += " ";
         }
