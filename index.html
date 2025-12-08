@@ -116,7 +116,7 @@
 
 <script>
 const glitch = document.getElementById("glitch");
-const chars = ".,-~:;=!*#$@";
+const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()[]{}.,-~:;=+/";
 function randomString(n) {
     let o = "";
     for (let i = 0; i < n; i++) o += chars[Math.floor(Math.random() * chars.length)];
@@ -148,48 +148,35 @@ function updateTimer() {
 }
 updateTimer();
 
-const lines = [...document.querySelectorAll(".typed-line")];
-function typeLine(i) {
-    if (!lines[i]) return;
-    const el = lines[i];
-    const t = el.textContent.trim();
-    el.textContent = "";
-    el.style.opacity = 1;
-    let p = 0;
-    const s = setInterval(() => {
-        el.textContent += t[p];
-        p++;
-        if (p === t.length) {
-            clearInterval(s);
-            setTimeout(() => typeLine(i + 1), 400);
-        }
-    }, 25);
-}
-typeLine(0);
-
 const donut = document.getElementById("ascii-donut");
 
-function renderCircle() {
-    const r = 12;
-    const inner = 6;
+function renderDonut() {
+    const outer = 16;
+    const inner = 8;
+
     let out = "";
-    for (let y = -r; y <= r; y++) {
+
+    for (let y = -outer; y <= outer; y++) {
         let row = "";
-        for (let x = -r * 2; x <= r * 2; x++) {
+        for (let x = -outer * 2; x <= outer * 2; x++) {
             let dx = x / 2;
             let d = Math.sqrt(dx * dx + y * y);
 
-            if (d < inner) row += " ";
-            else if (d < r - 1) row += chars[Math.floor(Math.random() * chars.length)];
-            else if (d < r) row += chars[Math.floor(Math.random() * (chars.length / 2))];
-            else row += " ";
+            if (d < inner) {
+                row += " ";
+            } else if (d < outer) {
+                row += chars[Math.floor(Math.random() * chars.length)];
+            } else {
+                row += " ";
+            }
         }
         out += row + "\n";
     }
     donut.textContent = out;
 }
-setInterval(renderCircle, 60);
-renderCircle();
+
+setInterval(renderDonut, 50);
+renderDonut();
 </script>
 
 </body>
