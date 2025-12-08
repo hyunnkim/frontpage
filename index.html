@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <title>William Kim</title>
 <link rel="icon" type="image/png" href="del.png">
-
 <style>
     body {
         margin: 0;
@@ -13,8 +12,6 @@
         color: #2d3445;
         overflow: hidden;
     }
-
-    /* COORDINATES */
     #coords-left {
         position: fixed;
         top: 15px;
@@ -29,8 +26,6 @@
         font-size: 12px;
         opacity: 0.6;
     }
-
-    /* MAIN CONTENT */
     #content {
         position: absolute;
         top: 50%;
@@ -39,33 +34,25 @@
         text-align: center;
         width: 100%;
     }
-
-    /* ASCII DONUT */
     #ascii-donut {
-        font-family: monospace;
+        font-family: "Courier New", monospace;
         white-space: pre;
         font-size: 8px;
         line-height: 8px;
         opacity: 0.75;
         margin-bottom: 40px;
     }
-
-    /* NAME */
     h1 {
         font-size: 32px;
         margin: 10px 0 25px 0;
         font-weight: 500;
     }
-
-    /* TYPED LINES */
     .typed-line {
-        font-size: 16px;
-        margin: 10px 0;
+        font-size: 14px;
+        margin: 6px 0;
         opacity: 0;
-        white-space: nowrap;
+        white-space: normal;
     }
-
-    /* GLITCH STRING */
     #glitch {
         position: fixed;
         bottom: 20px;
@@ -74,8 +61,6 @@
         font-size: 12px;
         opacity: 0.5;
     }
-
-    /* FOOTER LINKS */
     #footer {
         position: fixed;
         bottom: 30px;
@@ -95,11 +80,9 @@
 
 <body>
 
-<!-- COLUMBIA UNIVERSITY COORDINATES -->
 <div id="coords-left">40°48'26.3"N</div>
 <div id="coords-right">73°57'49.5"W</div>
 
-<!-- COUNTER TOP-CENTER -->
 <div id="counter" style="
     position: fixed;
     top: 20px;
@@ -110,7 +93,6 @@
 
 <div id="content">
 
-    <!-- ROTATING ASCII DONUT -->
     <div id="ascii-donut"></div>
 
     <h1>William Kim</h1>
@@ -123,51 +105,39 @@
 
 </div>
 
-<!-- GLITCHING STRING -->
 <div id="glitch"></div>
 
-<!-- FOOTER LINKS -->
 <div id="footer">
-    <a href="#">LINKEDIN</a>
-    <a href="#">GITHUB</a>
+    <a href="https://www.linkedin.com/in/hyunkimm" target="_blank" rel="noopener noreferrer">LINKEDIN</a>
+    <a href="https://github.com/hyunnkim" target="_blank" rel="noopener noreferrer">GITHUB</a>
 </div>
 
 <script>
-/* GLITCHING RANDOM STRING (bottom-left) */
 const glitch = document.getElementById("glitch");
 const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-
-function randomString(len=12) {
+function randomString(len = 12) {
     let out = "";
     for (let i = 0; i < len; i++)
         out += chars[Math.floor(Math.random() * chars.length)];
     return out;
 }
-
 setInterval(() => glitch.textContent = randomString(12), 120);
 
-
-/* COUNTER (top center) */
-let count = 644563449524;
+let count = 0;
 setInterval(() => {
     count += Math.floor(Math.random() * 3) + 1;
     document.getElementById("counter").textContent = count;
 }, 90);
 
-
-/* TYPING ANIMATION */
 const lines = [...document.querySelectorAll(".typed-line")];
-
 function typeLine(index) {
     if (!lines[index]) return;
-
-    let el = lines[index];
-    let text = el.textContent;
+    const el = lines[index];
+    const text = el.textContent.trim();
     el.textContent = "";
     el.style.opacity = 1;
-
     let i = 0;
-    let typer = setInterval(() => {
+    const typer = setInterval(() => {
         el.textContent += text[i];
         i++;
         if (i === text.length) {
@@ -176,71 +146,56 @@ function typeLine(index) {
         }
     }, 25);
 }
-
 typeLine(0);
 
-
-/* ROTATING ASCII DONUT */
 let A = 0;
 let B = 0;
 const donut = document.getElementById("ascii-donut");
 
 function renderDonut() {
-    let b = [];
-    let z = [];
-
     const width = 60;
-    const height = 30;
-
-    for (let i = 0; i < width * height; i++) {
-        b[i] = " ";
-        z[i] = 0;
-    }
+    const height = 22;
+    const b = new Array(width * height).fill(" ");
+    const z = new Array(width * height).fill(0);
 
     for (let j = 0; j < 6.28; j += 0.07) {
         for (let i = 0; i < 6.28; i += 0.02) {
-
-            let c = Math.sin(i);
-            let d = Math.cos(j);
-            let e = Math.sin(A);
-            let f = Math.sin(j);
-            let g = Math.cos(A);
-
-            let h = d + 2;
-            let D = 1 / (c * h * e + f * g + 5);
-
-            let l = Math.cos(i);
-            let m = Math.cos(B);
-            let n = Math.sin(B);
-
-            let t = c * h * g - f * e;
-
-            let x = Math.floor(width/2 + width * D * (l * h * m - t * n));
-            let y = Math.floor(height/2 + height * D * (l * h * n + t * m));
-
-            let o = Math.floor(x + width * y);
-
-            let N =
-                Math.floor(
-                    8 * ((f * e - c * d * g) * m
-                    - c * d * e - f * g
-                    - l * d * n)
-                );
-
-            if (height > y && y > 0 && x > 0 && width > x && D > z[o]) {
+            const c = Math.sin(i);
+            const d = Math.cos(j);
+            const e = Math.sin(A);
+            const f = Math.sin(j);
+            const g = Math.cos(A);
+            const h = d + 2;
+            const D = 1 / (c * h * e + f * g + 5);
+            const l = Math.cos(i);
+            const m = Math.cos(B);
+            const n = Math.sin(B);
+            const t = c * h * g - f * e;
+            const x = Math.floor(width / 2 + width * D * (l * h * m - t * n));
+            const y = Math.floor(height / 2 + height * D * (l * h * n + t * m));
+            const o = x + width * y;
+            const N = Math.floor(
+                8 * ((f * e - c * d * g) * m - c * d * e - f * g - l * d * n)
+            );
+            if (y >= 0 && y < height && x >= 0 && x < width && D > z[o]) {
                 z[o] = D;
-                b[o] = ".,-~:;=!*#$@"[Math.max(N, 0)];
+                b[o] = ".,-~:;=!*#$@"[Math.max(N, 0)] || ".";
             }
         }
     }
 
-    donut.textContent = b.join("");
+    let output = "";
+    for (let k = 0; k < b.length; k++) {
+        output += b[k];
+        if ((k + 1) % width === 0) output += "\n";
+    }
+
+    donut.textContent = output;
     A += 0.04;
     B += 0.02;
 }
 
 setInterval(renderDonut, 30);
-
 </script>
 
 </body>
