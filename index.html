@@ -37,8 +37,8 @@
     #ascii-donut {
         font-family: "Courier New", monospace;
         white-space: pre;
-        font-size: 8px;
-        line-height: 8px;
+        font-size: 7px;
+        line-height: 7px;
         opacity: 0.75;
         margin-bottom: 40px;
     }
@@ -123,10 +123,12 @@ function randomString(len = 12) {
 }
 setInterval(() => glitch.textContent = randomString(12), 120);
 
-let count = 0;
+let count = parseInt(localStorage.getItem("counterValue")) || 0;
+document.getElementById("counter").textContent = count;
 setInterval(() => {
     count += Math.floor(Math.random() * 3) + 1;
     document.getElementById("counter").textContent = count;
+    localStorage.setItem("counterValue", count);
 }, 90);
 
 const lines = [...document.querySelectorAll(".typed-line")];
@@ -153,8 +155,8 @@ let B = 0;
 const donut = document.getElementById("ascii-donut");
 
 function renderDonut() {
-    const width = 60;
-    const height = 22;
+    const width = 42;
+    const height = 16;
     const b = new Array(width * height).fill(" ");
     const z = new Array(width * height).fill(0);
 
