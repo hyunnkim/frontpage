@@ -36,7 +36,7 @@
     }
     #content {
         position: absolute;
-        top: 50%;
+        top: 45%;
         left: 50%;
         transform: translate(-50%, -50%);
         text-align: center;
@@ -117,7 +117,6 @@
 <script>
 const glitch = document.getElementById("glitch");
 const chars = ".,-~:;=!*#$@";
-
 function randomString(n) {
     let o = "";
     for (let i = 0; i < n; i++) o += chars[Math.floor(Math.random() * chars.length)];
@@ -125,25 +124,29 @@ function randomString(n) {
 }
 setInterval(() => glitch.textContent = randomString(12), 120);
 
-let base = parseFloat(localStorage.getItem("smoothCounterValue")) || 0;
-let last = parseFloat(localStorage.getItem("smoothCounterTime")) || Date.now();
+let start = parseInt(localStorage.getItem("timerStart")) || Date.now();
+localStorage.setItem("timerStart", start);
 
-function updateBase() {
+function updateTimer() {
     let now = Date.now();
-    let diff = now - last;
-    if (diff > 0) {
-        base += diff * 0.015;
-        last = now;
-        localStorage.setItem("smoothCounterValue", base);
-        localStorage.setItem("smoothCounterTime", last);
-    }
+    let diff = now - start;
+
+    let hours = Math.floor(diff / 3600000);
+    let minutes = Math.floor((diff % 3600000) / 60000);
+    let seconds = Math.floor((diff % 60000) / 1000);
+    let ms = diff % 1000;
+
+    let output =
+        hours.toString().padStart(4, "0") +
+        minutes.toString().padStart(2, "0") +
+        seconds.toString().padStart(2, "0") +
+        ms.toString().padStart(3, "0");
+
+    document.getElementById("counter").textContent = output;
+
+    requestAnimationFrame(updateTimer);
 }
-function animateCounter() {
-    updateBase();
-    document.getElementById("counter").textContent = Math.floor(base);
-    requestAnimationFrame(animateCounter);
-}
-animateCounter();
+updateTimer();
 
 const lines = [...document.querySelectorAll(".typed-line")];
 function typeLine(i) {
