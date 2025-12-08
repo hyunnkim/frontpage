@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Your Name</title>
+<title>William Kim</title>
+<link rel="icon" type="image/png" href="del.png">
+
 <style>
     body {
         margin: 0;
@@ -12,7 +14,7 @@
         overflow: hidden;
     }
 
-    /* Top coordinates */
+    /* COORDINATES */
     #coords-left {
         position: fixed;
         top: 15px;
@@ -28,7 +30,7 @@
         opacity: 0.6;
     }
 
-    /* Main wrapper */
+    /* MAIN CONTENT */
     #content {
         position: absolute;
         top: 50%;
@@ -38,24 +40,24 @@
         width: 100%;
     }
 
-    /* ASCII circle */
-    #ascii-circle {
+    /* ASCII DONUT */
+    #ascii-donut {
         font-family: monospace;
         white-space: pre;
-        font-size: 10px;
+        font-size: 8px;
         line-height: 8px;
-        opacity: 0.7;
+        opacity: 0.75;
         margin-bottom: 40px;
     }
 
-    /* Name */
+    /* NAME */
     h1 {
         font-size: 32px;
         margin: 10px 0 25px 0;
         font-weight: 500;
     }
 
-    /* Bullet points */
+    /* TYPED LINES */
     .typed-line {
         font-size: 16px;
         margin: 10px 0;
@@ -63,7 +65,7 @@
         white-space: nowrap;
     }
 
-    /* Bottom-left ASCII changing string */
+    /* GLITCH STRING */
     #glitch {
         position: fixed;
         bottom: 20px;
@@ -73,7 +75,7 @@
         opacity: 0.5;
     }
 
-    /* Footer links */
+    /* FOOTER LINKS */
     #footer {
         position: fixed;
         bottom: 30px;
@@ -90,82 +92,72 @@
     }
 </style>
 </head>
+
 <body>
 
-<!-- Columbia University coordinates -->
+<!-- COLUMBIA UNIVERSITY COORDINATES -->
 <div id="coords-left">40°48'26.3"N</div>
 <div id="coords-right">73°57'49.5"W</div>
 
-<!-- Counting number at top center -->
+<!-- COUNTER TOP-CENTER -->
 <div id="counter" style="
     position: fixed;
     top: 20px;
     left: 50%;
     transform: translateX(-50%);
     font-size: 14px;
-    opacity: 0.6;
-"></div>
+    opacity: 0.6;"></div>
 
 <div id="content">
-    <div id="ascii-circle"></div>
 
-    <h1>Your Name</h1>
+    <!-- ROTATING ASCII DONUT -->
+    <div id="ascii-donut"></div>
+
+    <h1>William Kim</h1>
 
     <div id="lines">
-        <div class="typed-line">I enjoy thinking about product and technology</div>
-        <div class="typed-line">Currently working on ML applications and quantitative research</div>
-        <div class="typed-line">Studying Applied Mathematics & Computer Science</div>
+        <div class="typed-line">I enjoy being at the intersection of product and machine learning</div>
+        <div class="typed-line">Currently, I study applied math and computer science at Columbia University</div>
+        <div class="typed-line">My hobbies come and go. Currently, I skateboard, enjoy cooking (and eating), and follow the quantitative stock and cryptocurrency trading space.</div>
     </div>
+
 </div>
 
+<!-- GLITCHING STRING -->
 <div id="glitch"></div>
 
+<!-- FOOTER LINKS -->
 <div id="footer">
     <a href="#">LINKEDIN</a>
     <a href="#">GITHUB</a>
 </div>
 
 <script>
-/* 1. RANDOM-CHANGING ASCII STRING (bottom-left) */
+/* GLITCHING RANDOM STRING (bottom-left) */
 const glitch = document.getElementById("glitch");
 const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
 function randomString(len=12) {
     let out = "";
-    for (let i = 0; i < len; i++) out += chars[Math.floor(Math.random()*chars.length)];
+    for (let i = 0; i < len; i++)
+        out += chars[Math.floor(Math.random() * chars.length)];
     return out;
 }
+
 setInterval(() => glitch.textContent = randomString(12), 120);
 
-/* 2. COUNTING NUMBER (top-center) */
+
+/* COUNTER (top center) */
 let count = 644563449524;
 setInterval(() => {
-    count += Math.floor(Math.random()*3)+1;
+    count += Math.floor(Math.random() * 3) + 1;
     document.getElementById("counter").textContent = count;
 }, 90);
 
-/* 3. ANIMATED ASCII CIRCLE */
-const circleElement = document.getElementById("ascii-circle");
-function generateCircle() {
-    let size = 18;
-    let output = "";
-    for (let y = -size; y <= size; y += 2) {
-        for (let x = -size; x <= size; x++) {
-            let val = x*x + y*y/2;
-            if (val >= (size*size*0.65) && val <= (size*size*1.1)) {
-                let c = chars[Math.floor(Math.random()*chars.length)];
-                output += c;
-            } else {
-                output += " ";
-            }
-        }
-        output += "\n";
-    }
-    circleElement.textContent = output;
-}
-setInterval(generateCircle, 150);
 
-/* 4. TYPED-OUT BULLET POINTS */
+/* TYPING ANIMATION */
 const lines = [...document.querySelectorAll(".typed-line")];
+
 function typeLine(index) {
     if (!lines[index]) return;
 
@@ -180,11 +172,75 @@ function typeLine(index) {
         i++;
         if (i === text.length) {
             clearInterval(typer);
-            setTimeout(() => typeLine(index+1), 400);
+            setTimeout(() => typeLine(index + 1), 400);
         }
     }, 25);
 }
+
 typeLine(0);
+
+
+/* ROTATING ASCII DONUT */
+let A = 0;
+let B = 0;
+const donut = document.getElementById("ascii-donut");
+
+function renderDonut() {
+    let b = [];
+    let z = [];
+
+    const width = 60;
+    const height = 30;
+
+    for (let i = 0; i < width * height; i++) {
+        b[i] = " ";
+        z[i] = 0;
+    }
+
+    for (let j = 0; j < 6.28; j += 0.07) {
+        for (let i = 0; i < 6.28; i += 0.02) {
+
+            let c = Math.sin(i);
+            let d = Math.cos(j);
+            let e = Math.sin(A);
+            let f = Math.sin(j);
+            let g = Math.cos(A);
+
+            let h = d + 2;
+            let D = 1 / (c * h * e + f * g + 5);
+
+            let l = Math.cos(i);
+            let m = Math.cos(B);
+            let n = Math.sin(B);
+
+            let t = c * h * g - f * e;
+
+            let x = Math.floor(width/2 + width * D * (l * h * m - t * n));
+            let y = Math.floor(height/2 + height * D * (l * h * n + t * m));
+
+            let o = Math.floor(x + width * y);
+
+            let N =
+                Math.floor(
+                    8 * ((f * e - c * d * g) * m
+                    - c * d * e - f * g
+                    - l * d * n)
+                );
+
+            if (height > y && y > 0 && x > 0 && width > x && D > z[o]) {
+                z[o] = D;
+                b[o] = ".,-~:;=!*#$@"[Math.max(N, 0)];
+            }
+        }
+    }
+
+    donut.textContent = b.join("");
+    A += 0.04;
+    B += 0.02;
+}
+
+setInterval(renderDonut, 30);
+
 </script>
 
 </body>
