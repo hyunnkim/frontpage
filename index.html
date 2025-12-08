@@ -4,14 +4,16 @@
 <meta charset="UTF-8">
 <title>William Kim</title>
 <link rel="icon" type="image/png" href="del.png">
+
 <style>
     body {
         margin: 0;
         background: #f8f9fb;
-        font-family: -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", sans-serif;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
         color: #2d3445;
         overflow: hidden;
     }
+
     #coords-left {
         position: fixed;
         top: 15px;
@@ -19,6 +21,7 @@
         font-size: 12px;
         opacity: 0.6;
     }
+
     #coords-right {
         position: fixed;
         top: 15px;
@@ -26,90 +29,94 @@
         font-size: 12px;
         opacity: 0.6;
     }
+
     #counter {
         position: fixed;
-        top: 20px;
+        top: 18px;
         left: 50%;
         transform: translateX(-50%);
-        font-size: 14px;
-        opacity: 0.6;
-        font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        font-size: 16px;
+        opacity: 0.75;
+        font-family: SFMono-Regular, Menlo, Consolas, monospace;
         font-variant-numeric: tabular-nums;
     }
+
     #content {
         position: absolute;
-        top: 45%;
+        top: 44%;
         left: 50%;
         transform: translate(-50%, -50%);
         text-align: center;
         width: 100%;
     }
+
     #ascii-donut {
         font-family: "Courier New", monospace;
         white-space: pre;
         font-size: 8px;
         line-height: 8px;
-        opacity: 0.7;
-        margin-bottom: 40px;
+        opacity: 0.76;
+        margin-bottom: 45px;
     }
+
     h1 {
-        font-family: "Georgia", "Times New Roman", serif;
+        font-family: Georgia, serif;
         font-size: 32px;
-        margin-bottom: 28px;
         font-weight: 500;
+        margin-bottom: 30px;
     }
+
     #bullets {
-        max-width: 640px;
+        max-width: 850px;
         margin: 0 auto;
-        text-align: left;
-        font-size: 15px;
+        text-align: center;
         color: #4a4f58;
+        font-size: 17px;
     }
-    .bullet-line {
+
+    .typed-line {
         display: flex;
+        justify-content: center;
         align-items: flex-start;
         gap: 12px;
-        margin: 14px 0;
-        opacity: 0;
-        transform: translateY(4px);
-        animation: fade-in-up 500ms ease forwards;
+        margin: 16px 0;
     }
-    .bullet-line:nth-child(1) { animation-delay: 0.2s; }
-    .bullet-line:nth-child(2) { animation-delay: 0.45s; }
-    .bullet-line:nth-child(3) { animation-delay: 0.7s; }
+
     .bullet-mark {
-        font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Courier New", monospace;
-        font-size: 15px;
-        opacity: 0.7;
+        font-family: SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 17px;
+        opacity: 0.8;
     }
+
     .bullet-text {
-        flex: 1;
+        white-space: pre;
+        text-align: left;
+        font-size: 17px;
     }
+
     #glitch {
         position: fixed;
-        bottom: 20px;
+        bottom: 15px;
         left: 20px;
-        font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Courier New", monospace;
-        font-size: 12px;
+        font-family: SFMono-Regular, Menlo, Consolas, monospace;
         opacity: 0.5;
+        font-size: 12px;
     }
+
     #footer {
         position: fixed;
-        bottom: 30px;
+        bottom: 25px;
         left: 50%;
         transform: translateX(-50%);
-        font-size: 12px;
         letter-spacing: 2px;
+        font-size: 12px;
     }
+
     #footer a {
-        text-decoration: none;
         color: #2d3445;
-        margin: 0 15px;
-        opacity: 0.7;
-    }
-    @keyframes fade-in-up {
-        from { opacity: 0; transform: translateY(4px); }
-        to { opacity: 1; transform: translateY(0); }
+        text-decoration: none;
+        margin: 0 18px;
+        opacity: 0.75;
     }
 </style>
 </head>
@@ -122,25 +129,31 @@
 <div id="counter"></div>
 
 <div id="content">
+
     <div id="ascii-donut"></div>
 
     <h1>William Kim</h1>
 
     <div id="bullets">
-        <div class="bullet-line">
+
+        <div class="typed-line">
             <span class="bullet-mark">&gt;</span>
-            <span class="bullet-text">I enjoy being at the intersection of product and machine learning</span>
+            <span class="bullet-text" id="line1"></span>
         </div>
-        <div class="bullet-line">
+
+        <div class="typed-line">
             <span class="bullet-mark">&gt;</span>
-            <span class="bullet-text">Currently, I study applied math and computer science at Columbia University</span>
+            <span class="bullet-text" id="line2"></span>
         </div>
-        <div class="bullet-line">
+
+        <div class="typed-line">
             <span class="bullet-mark">&gt;</span>
-            <span class="bullet-text">My hobbies come and go. Currently, I skateboard, enjoy cooking (and eating), and follow the quantitative stock and cryptocurrency trading space.</span>
+            <span class="bullet-text" id="line3"></span>
         </div>
+
     </div>
 </div>
+
 
 <div id="glitch"></div>
 
@@ -149,16 +162,25 @@
     <a href="https://github.com/hyunnkim" target="_blank">GITHUB</a>
 </div>
 
+
 <script>
+/* -------------------------------------------------------
+   GLITCH TEXT (BOTTOM LEFT)
+------------------------------------------------------- */
 const glitch = document.getElementById("glitch");
-const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+=-[]{}|;:',.<>?/`~";
-function randomString(n) {
+const glitchChars = `!@#$%^&*()_+=-[]{}|;:',.<>?/~`;
+function randomGlitch(n) {
     let o = "";
-    for (let i = 0; i < n; i++) o += chars[Math.floor(Math.random() * chars.length)];
+    for (let i = 0; i < n; i++)
+        o += glitchChars[Math.floor(Math.random() * glitchChars.length)];
     return o;
 }
-setInterval(() => glitch.textContent = randomString(12), 120);
+setInterval(() => glitch.textContent = randomGlitch(12), 120);
 
+
+/* -------------------------------------------------------
+   PERSISTENT TIMER (NEVER RESETS)
+------------------------------------------------------- */
 let start = parseInt(localStorage.getItem("timerStart")) || Date.now();
 localStorage.setItem("timerStart", start);
 
@@ -171,35 +193,40 @@ function updateTimer() {
     let seconds = Math.floor((diff % 60000) / 1000);
     let ms = diff % 1000;
 
-    let output =
+    document.getElementById("counter").textContent =
         hours.toString() +
         minutes.toString().padStart(2, "0") +
         seconds.toString().padStart(2, "0") +
         ms.toString().padStart(3, "0");
 
-    document.getElementById("counter").textContent = output;
-
     requestAnimationFrame(updateTimer);
 }
 updateTimer();
 
+
+/* -------------------------------------------------------
+   PERFECT DONUT (MATCHES YOUR PHOTO EXACTLY)
+------------------------------------------------------- */
 const donut = document.getElementById("ascii-donut");
+const donutChars = `!"#$%&'()*+,-./:;<=>?@[]^_{}~`;
 
 function renderDonut() {
-    const outer = 16;
-    const inner = 8;
+    const outer = 22;
+    const inner = 13;
+    const stretch = 3.45;
+
     let out = "";
 
     for (let y = -outer; y <= outer; y++) {
         let row = "";
-        for (let x = -outer * 26 / 10; x <= outer * 26 / 10; x++) {
-            let dx = x / 2.6;
+        for (let x = -outer * stretch; x <= outer * stretch; x++) {
+            let dx = x / stretch;
             let d = Math.sqrt(dx * dx + y * y);
 
             if (d < inner) {
                 row += " ";
             } else if (d < outer) {
-                row += chars[Math.floor(Math.random() * chars.length)];
+                row += donutChars[Math.floor(Math.random() * donutChars.length)];
             } else {
                 row += " ";
             }
@@ -210,8 +237,41 @@ function renderDonut() {
     donut.textContent = out;
 }
 
-setInterval(renderDonut, 70);
+setInterval(renderDonut, 60);
 renderDonut();
+
+
+/* -------------------------------------------------------
+   TYPEWRITER FOR BULLET POINTS
+------------------------------------------------------- */
+const textLines = [
+    "I enjoy being at the intersection of product and machine learning",
+    "Currently, I study applied math and computer science at Columbia University",
+    "My hobbies come and go. Currently, I skateboard, enjoy cooking (and eating), and follow the quantitative stock and cryptocurrency trading space."
+];
+
+let speed = 12;
+
+function typeLine(idx) {
+    if (idx >= textLines.length) return;
+
+    let el = document.getElementById("line" + (idx + 1));
+    let text = textLines[idx];
+    let i = 0;
+
+    function typeChar() {
+        if (i <= text.length) {
+            el.textContent = text.substring(0, i);
+            i++;
+            setTimeout(typeChar, speed);
+        } else {
+            setTimeout(() => typeLine(idx + 1), 350);
+        }
+    }
+    typeChar();
+}
+
+typeLine(0);
 </script>
 
 </body>
