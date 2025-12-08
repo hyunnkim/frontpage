@@ -113,8 +113,9 @@
 </div>
 
 <script>
-const glitch = document.getElementById("glitch");
-const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+onst glitch = document.getElementById("glitch");
+const chars = ".,-~:;=!*#$@";
+
 function randomString(len = 12) {
     let o = "";
     for (let i = 0; i < len; i++) o += chars[Math.floor(Math.random() * chars.length)];
@@ -122,80 +123,65 @@ function randomString(len = 12) {
 }
 setInterval(() => glitch.textContent = randomString(12), 120);
 
-/* persistent counter based on real time */
-let saved = parseInt(localStorage.getItem("counterValue")) || 0;
-let last = parseInt(localStorage.getItem("counterTimestamp")) || Date.now();
+let base = parseFloat(localStorage.getItem("smoothCounterValue")) || 0;
+let last = parseInt(localStorage.getItem("smoothCounterTime")) || Date.now();
 
-function syncCounter() {
+function updateBase() {
     let now = Date.now();
     let diff = now - last;
-    let increments = Math.floor(diff / 90);
-    if (increments > 0) {
-        saved += increments * (Math.floor(Math.random() * 3) + 1);
+    if (diff > 0) {
+        base += diff * 0.015;
         last = now;
-        localStorage.setItem("counterValue", saved);
-        localStorage.setItem("counterTimestamp", last);
+        localStorage.setItem("smoothCounterValue", base);
+        localStorage.setItem("smoothCounterTime", last);
     }
-    document.getElementById("counter").textContent = saved;
 }
-setInterval(syncCounter, 90);
-syncCounter();
+function animateCounter() {
+    updateBase();
+    document.getElementById("counter").textContent = Math.floor(base);
+    requestAnimationFrame(animateCounter);
+}
+animateCounter();
 
-/* typewriter */
 const lines = [...document.querySelectorAll(".typed-line")];
 function typeLine(i) {
     if (!lines[i]) return;
     const el = lines[i];
-    const txt = el.textContent.trim();
+    const t = el.textContent.trim();
     el.textContent = "";
     el.style.opacity = 1;
     let p = 0;
-    const t = setInterval(() => {
-        el.textContent += txt[p];
+    const s = setInterval(() => {
+        el.textContent += t[p];
         p++;
-        if (p === txt.length) {
-            clearInterval(t);
+        if (p === t.length) {
+            clearInterval(s);
             setTimeout(() => typeLine(i + 1), 400);
         }
     }, 25);
 }
 typeLine(0);
 
-/* 2D donut (non-rotating, characters always changing) */
 const donut = document.getElementById("ascii-donut");
 
-const donutShape = [
-"          #######          ",
-"      ###         ###      ",
-"    ##               ##    ",
-"   #                   #   ",
-"  #                     #  ",
-"  #                     #  ",
-"  #                     #  ",
-"   #                   #   ",
-"    ##               ##    ",
-"      ###         ###      ",
-"          #######          "
-];
-
-function render2DDonut() {
-    let out = "";
-    for (let row of donutShape) {
-        let line = "";
-        for (let ch of row) {
-            if (ch === "#") {
-                line += ".,-~:;=!*#$@"[Math.floor(Math.random() * 12)];
-            } else {
-                line += " "; 
-            }
+function makeCircle() {
+    const radius = 12;
+    const rows = [];
+    for (let y = -radius; y <= radius; y++) {
+        let row = "";
+        for (let x = -radius * 2; x <= radius * 2; x++) {
+            let dx = x / 2;
+            let d = Math.sqrt(dx * dx + y * y);
+            if (d < radius - 1) row += chars[Math.floor(Math.random() * chars.length)];
+            else if (d < radius) row += chars[Math.floor(Math.random() * (chars.length / 2))];
+            else row += " ";
         }
-        out += line + "\n";
+        rows.push(row);
     }
-    donut.textContent = out;
+    donut.textContent = rows.join("\n");
 }
-
-setInterval(render2DDonut, 60);
-render2DDonut();
+setInterval(makeCircle, 60);
+makeCircle();
 </script>
 
 </body>
