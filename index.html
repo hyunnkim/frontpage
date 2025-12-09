@@ -14,6 +14,7 @@
         overflow: hidden;
     }
 
+    /* Coordinates */
     #coords-left {
         position: fixed;
         top: 15px;
@@ -30,6 +31,7 @@
         opacity: 0.65;
     }
 
+    /* Timer */
     #counter {
         position: fixed;
         top: 18px;
@@ -41,6 +43,7 @@
         font-variant-numeric: tabular-nums;
     }
 
+    /* Main content */
     #content {
         position: absolute;
         top: 44%;
@@ -50,6 +53,7 @@
         width: 100%;
     }
 
+    /* Donut */
     #ascii-donut {
         font-family: "Courier New", monospace;
         white-space: pre;
@@ -59,6 +63,7 @@
         margin-bottom: 45px;
     }
 
+    /* Name */
     h1 {
         font-family: Georgia, serif;
         font-size: 32px;
@@ -66,6 +71,7 @@
         margin-bottom: 30px;
     }
 
+    /* Description block (Matthew-style) */
     #bullets {
         width: 520px;
         margin: 0 auto;
@@ -96,6 +102,7 @@
         flex: 1;
     }
 
+    /* Glitch bottom left */
     #glitch {
         position: fixed;
         bottom: 15px;
@@ -105,6 +112,7 @@
         font-size: 12px;
     }
 
+    /* Footer links */
     #footer {
         position: fixed;
         bottom: 25px;
@@ -123,6 +131,29 @@
 
     #footer a:hover {
         opacity: 1;
+    }
+
+    /* Bottom-right identity squares */
+    #br-box {
+        position: fixed;
+        bottom: 22px;
+        right: 22px;
+        display: flex;
+        width: 40px;
+        height: 20px;
+    }
+
+    #br-box .sq {
+        width: 20px;
+        height: 20px;
+    }
+
+    #br-box .left {
+        background: #9ca3af;
+    }
+
+    #br-box .right {
+        background: #000000;
     }
 </style>
 </head>
@@ -165,7 +196,14 @@
     <a href="https://github.com/hyunnkim" target="_blank">GITHUB</a>
 </div>
 
+<!-- Bottom-right squares -->
+<div id="br-box">
+    <div class="sq left"></div>
+    <div class="sq right"></div>
+</div>
+
 <script>
+/* Glitch text */
 const glitch = document.getElementById("glitch");
 const glitchChars = "!@#$%^&*()_+=-[]{}|;:',.<>?/~";
 function randomGlitch(n) {
@@ -175,6 +213,7 @@ function randomGlitch(n) {
 }
 setInterval(() => glitch.textContent = randomGlitch(12), 120);
 
+/* Persistent timer */
 let start = parseInt(localStorage.getItem("timerStart")) || Date.now();
 localStorage.setItem("timerStart", start);
 
@@ -194,6 +233,7 @@ function updateTimer() {
 }
 updateTimer();
 
+/* ASCII donut */
 const donut = document.getElementById("ascii-donut");
 const donutChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
 
@@ -226,6 +266,7 @@ function renderCircle() {
 setInterval(renderCircle, 70);
 renderCircle();
 
+/* Typing animation for bullet descriptions */
 const textLines = [
     "I enjoy being at the intersection of product and machine learning",
     "Currently, I study applied math and computer science at Columbia University",
