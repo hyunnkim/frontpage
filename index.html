@@ -18,16 +18,16 @@
         position: fixed;
         top: 15px;
         left: 20px;
-        font-size: 12px;
-        opacity: 0.6;
+        font-size: 15px; /* bigger */
+        opacity: 0.65;
     }
 
     #coords-right {
         position: fixed;
         top: 15px;
         right: 20px;
-        font-size: 12px;
-        opacity: 0.6;
+        font-size: 15px; /* bigger */
+        opacity: 0.65;
     }
 
     #counter {
@@ -35,7 +35,7 @@
         top: 18px;
         left: 50%;
         transform: translateX(-50%);
-        font-size: 16px;
+        font-size: 13px; /* smaller */
         opacity: 0.75;
         font-family: SFMono-Regular, Menlo, Consolas, monospace;
         font-variant-numeric: tabular-nums;
@@ -76,9 +76,9 @@
 
     .typed-line {
         display: flex;
-        align-items: flex-start;
         gap: 12px;
         margin: 18px 0;
+        justify-content: center;
     }
 
     .bullet-mark {
@@ -91,6 +91,7 @@
         white-space: pre-wrap;
         font-size: 17px;
         max-width: 700px;
+        text-align: left;
     }
 
     #glitch {
@@ -232,6 +233,7 @@ function typeLine(idx) {
     let el = document.getElementById("line" + (idx + 1));
     let text = textLines[idx];
     let i = 0;
+
     function typeChar() {
         if (i <= text.length) {
             el.textContent = text.substring(0, i);
@@ -241,8 +243,10 @@ function typeLine(idx) {
             setTimeout(() => typeLine(idx + 1), 350);
         }
     }
+
     typeChar();
 }
+
 typeLine(0);
 </script>
 
