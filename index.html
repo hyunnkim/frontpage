@@ -18,7 +18,7 @@
         position: fixed;
         top: 15px;
         left: 20px;
-        font-size: 15px; /* bigger */
+        font-size: 15px;
         opacity: 0.65;
     }
 
@@ -26,7 +26,7 @@
         position: fixed;
         top: 15px;
         right: 20px;
-        font-size: 15px; /* bigger */
+        font-size: 15px;
         opacity: 0.65;
     }
 
@@ -35,7 +35,7 @@
         top: 18px;
         left: 50%;
         transform: translateX(-50%);
-        font-size: 13px; /* smaller */
+        font-size: 13px;
         opacity: 0.75;
         font-family: SFMono-Regular, Menlo, Consolas, monospace;
         font-variant-numeric: tabular-nums;
@@ -67,7 +67,7 @@
     }
 
     #bullets {
-        max-width: 850px;
+        width: 760px;
         margin: 0 auto;
         color: #4a4f58;
         font-size: 17px;
@@ -76,22 +76,23 @@
 
     .typed-line {
         display: flex;
-        gap: 12px;
+        align-items: flex-start;
+        gap: 16px;
         margin: 18px 0;
-        justify-content: center;
     }
 
     .bullet-mark {
         font-family: SFMono-Regular, Menlo, Consolas, monospace;
-        font-size: 17px;
+        font-size: 18px;
         opacity: 0.8;
+        margin-top: 2px;
     }
 
     .bullet-text {
         white-space: pre-wrap;
         font-size: 17px;
-        max-width: 700px;
-        text-align: left;
+        max-width: 720px;
+        line-height: 1.7;
     }
 
     #glitch {
@@ -200,15 +201,21 @@ const donutChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!\"#$%&'
 function renderCircle() {
     const outerRadius = 14;
     const innerRadius = 7;
-    const stretch = 2.2;
+    const stretch = 2.4;
     let out = "";
     for (let y = -outerRadius; y <= outerRadius; y++) {
         let row = "";
         for (let x = -outerRadius * stretch; x <= outerRadius * stretch; x++) {
             let dx = x / stretch;
             let d = Math.sqrt(dx * dx + y * y);
-            if (d >= innerRadius && d <= outerRadius && Math.random() < 0.8) {
-                row += donutChars[Math.floor(Math.random() * donutChars.length)];
+            let jitter = (Math.random() - 0.5) * 0.9;
+            let dr = d + jitter;
+            if (dr >= innerRadius && dr <= outerRadius) {
+                if (Math.random() < 0.9) {
+                    row += donutChars[Math.floor(Math.random() * donutChars.length)];
+                } else {
+                    row += " ";
+                }
             } else {
                 row += " ";
             }
@@ -233,7 +240,6 @@ function typeLine(idx) {
     let el = document.getElementById("line" + (idx + 1));
     let text = textLines[idx];
     let i = 0;
-
     function typeChar() {
         if (i <= text.length) {
             el.textContent = text.substring(0, i);
@@ -243,10 +249,8 @@ function typeLine(idx) {
             setTimeout(() => typeLine(idx + 1), 350);
         }
     }
-
     typeChar();
 }
-
 typeLine(0);
 </script>
 
