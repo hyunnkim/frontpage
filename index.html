@@ -202,21 +202,23 @@ function randomGlitch(n) {
 }
 setInterval(() => glitch.textContent = randomGlitch(12), 120);
 
-let start = parseInt(localStorage.getItem("timerStart")) || Date.now();
-localStorage.setItem("timerStart", start);
+const globalStart = 1765063006869;
 
 function updateTimer() {
     let now = Date.now();
-    let diff = now - start;
+    let diff = now - globalStart;
+
     let hours = Math.floor(diff / 3600000);
     let minutes = Math.floor((diff % 3600000) / 60000);
     let seconds = Math.floor((diff % 60000) / 1000);
     let ms = diff % 1000;
+
     document.getElementById("counter").textContent =
         hours.toString() +
         minutes.toString().padStart(2, "0") +
         seconds.toString().padStart(2, "0") +
         ms.toString().padStart(3, "0");
+
     requestAnimationFrame(updateTimer);
 }
 updateTimer();
