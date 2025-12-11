@@ -224,7 +224,7 @@ function updateTimer() {
 updateTimer();
 
 const donut = document.getElementById("ascii-donut");
-const donutChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
+const donutChars = "abcdefghijklmnopqrstuvwxyz1234567890;
 
 function renderCircle() {
     const outerRadius = 14;
@@ -261,7 +261,7 @@ const textLines = [
     "My hobbies come and go. For now, I skateboard, enjoy cooking (and eating), and follow the quantitative stock and cryptocurrency trading space"
 ];
 
-let speed = 12;
+let speed = 9;
 
 function typeLine(idx) {
     if (idx >= textLines.length) return;
